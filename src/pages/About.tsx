@@ -2,6 +2,7 @@ import { GraduationCap, Rocket, Target, Award, Sparkles, Code } from "lucide-rea
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/ui/SectionHeader";
 import GlowCard from "@/components/ui/GlowCard";
+import profilePhoto from "@/assets/profile-photo.jpg";
 
 const milestones = [
   {
@@ -54,10 +55,14 @@ const About = () => {
             {/* Profile Card */}
             <GlowCard className="lg:row-span-2">
               <div className="text-center mb-6">
-                {/* Avatar placeholder */}
-                <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 flex items-center justify-center mb-4 border-2 border-primary/30 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
-                  <Sparkles className="w-12 h-12 text-primary relative z-10" />
+                {/* Profile Photo */}
+                <div className="w-40 h-40 mx-auto rounded-full mb-4 border-2 border-primary/50 relative overflow-hidden shadow-lg shadow-primary/20">
+                  <img 
+                    src={profilePhoto} 
+                    alt="Lee-Yandre Jacobs" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
                 </div>
                 <h3 className="text-2xl font-display font-bold gradient-text">
                   Lee-Yandre Jacobs
