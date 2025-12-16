@@ -165,36 +165,36 @@ const Home = () => {
 
       {/* PROJECTS SECTION */}
       <section ref={sectionRefs.projects} id="projects" className="px-6 py-20 border-t border-border/10">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <SectionHeader title="Featured Projects" subtitle="Practical solutions built with modern technologies" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {projects.map((project) => {
               const IconComponent = project.icon;
               return (
-                <GlowCard key={project.title} glowColor={project.color} className="flex flex-col">
-                  {/* Project Icon/Image Header */}
-                  <div className="aspect-video rounded-xl bg-gradient-to-br from-muted to-muted/50 mb-4 overflow-hidden relative group flex items-center justify-center">
+                <GlowCard key={project.title} glowColor={project.color} className="flex flex-col p-4">
+                  {/* Project Icon Header */}
+                  <div className="h-20 rounded-lg bg-gradient-to-br from-muted to-muted/50 mb-3 overflow-hidden relative group flex items-center justify-center">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10" />
-                    <IconComponent className="w-16 h-16 text-primary/60 group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
+                    <IconComponent className="w-10 h-10 text-primary/60 group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="text-xl font-display font-semibold text-foreground mb-2">{project.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.description}</p>
+                    <h3 className="text-lg font-display font-semibold text-foreground mb-1">{project.title}</h3>
+                    <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{project.description}</p>
 
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-3">
                       {project.tech.map((tech) => (
-                        <span key={tech} className="px-2 py-1 rounded-md text-xs font-mono bg-muted text-muted-foreground border border-border/30">
+                        <span key={tech} className="px-2 py-0.5 rounded text-xs font-mono bg-muted text-muted-foreground border border-border/30">
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="glow-button text-primary-foreground text-center text-sm flex items-center justify-center gap-2 mt-auto">
-                    <ExternalLink className="w-4 h-4" />
-                    Live Demo
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="glow-button text-primary-foreground text-center text-xs py-2 flex items-center justify-center gap-2 mt-auto">
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    View Project
                   </a>
                 </GlowCard>
               );
