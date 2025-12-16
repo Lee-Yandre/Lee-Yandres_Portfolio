@@ -236,138 +236,161 @@ const Home = () => {
 
       {/* ABOUT SECTION */}
       <section ref={sectionRefs.about} id="about" className="px-6 py-20 border-t border-border/10">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <SectionHeader title="About Me" subtitle="Journey from foundations to AI innovation" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Profile Card */}
-            <GlowCard className="text-center">
-              <div className="w-32 h-32 mx-auto rounded-full mb-4 border-2 border-primary/50 overflow-hidden shadow-lg shadow-primary/20">
-                <img src={profilePhoto} alt="Lee-Yandre Jacobs" className="w-full h-full object-cover" />
+          {/* Main Profile Card */}
+          <GlowCard className="mb-8">
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
+              {/* Profile Image */}
+              <div className="shrink-0 mx-auto lg:mx-0">
+                <div className="w-40 h-40 rounded-2xl border-2 border-primary/50 overflow-hidden shadow-lg shadow-primary/20">
+                  <img src={profilePhoto} alt="Lee-Yandre Jacobs" className="w-full h-full object-cover" />
+                </div>
               </div>
-              <h3 className="text-2xl font-display font-bold gradient-text mb-4">Lee-Yandre Jacobs</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                I am an emerging tech professional with hands-on experience in AI tools, prototyping, and building practical digital solutions. Through the CAPACITI Career Accelerator Program, I completed intensive training focused on problem-solving, agile teamwork, and real-world project delivery.
-              </p>
+              
+              {/* Bio Content */}
+              <div className="flex-1 space-y-4">
+                <h3 className="text-2xl font-display font-bold gradient-text text-center lg:text-left">Lee-Yandre Jacobs</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  I am an emerging tech professional with hands-on experience in AI tools, prototyping, and building practical digital solutions. Through the <span className="text-primary font-medium">CAPACITI Career Accelerator Program</span>, I completed intensive, industry-aligned training focused on problem-solving, agile teamwork, and real-world project delivery.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  I completed a <span className="text-secondary font-medium">2-month AI Bootcamp (AI V2 – 8 Weeks)</span> covering AI fundamentals, ethics, machine learning basics, NLP, prompt engineering, and functional AI prototypes. This strengthened my ability to translate AI concepts into real-world applications and collaborate effectively in agile teams.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  With a strong foundation in programming, process mapping, prototyping, and IT operations support, I bring both technical execution and strategic thinking to every project.
+                </p>
+              </div>
+            </div>
+          </GlowCard>
+
+          {/* Career Objectives & Milestones Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Career Objectives */}
+            <GlowCard glowColor="purple">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary/20">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-lg font-display font-semibold gradient-text">Career Objectives</h3>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-muted-foreground">
+                  <span className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                  Develop innovative tech solutions for real-world challenges
+                </li>
+                <li className="flex items-start gap-3 text-muted-foreground">
+                  <span className="w-2 h-2 rounded-full bg-secondary mt-2 shrink-0" />
+                  Continuously expand technical expertise in AI and cloud technologies
+                </li>
+                <li className="flex items-start gap-3 text-muted-foreground">
+                  <span className="w-2 h-2 rounded-full bg-accent mt-2 shrink-0" />
+                  Grow into a Tech Solutions Developer role delivering impactful systems
+                </li>
+              </ul>
             </GlowCard>
 
-            {/* Milestones */}
-            <div className="space-y-4">
-              {milestones.map((milestone) => {
-                const IconComponent = milestone.icon;
-                return (
-                  <GlowCard key={milestone.title} className="p-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                        <IconComponent className="w-4 h-4 text-primary" />
+            {/* Journey Milestones */}
+            <GlowCard glowColor="pink">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-secondary/20">
+                  <Rocket className="w-5 h-5 text-secondary" />
+                </div>
+                <h3 className="text-lg font-display font-semibold gradient-text">My Journey</h3>
+              </div>
+              <div className="space-y-3">
+                {milestones.map((milestone) => {
+                  const IconComponent = milestone.icon;
+                  return (
+                    <div key={milestone.title} className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded bg-muted flex items-center justify-center shrink-0 mt-0.5">
+                        <IconComponent className="w-3.5 h-3.5 text-primary" />
                       </div>
                       <div>
-                        <h4 className="font-display font-semibold text-foreground text-sm mb-1">{milestone.title}</h4>
+                        <p className="text-foreground font-medium text-sm">{milestone.title}</p>
                         <p className="text-muted-foreground text-xs">{milestone.description}</p>
                       </div>
                     </div>
-                  </GlowCard>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </GlowCard>
           </div>
         </div>
       </section>
 
       {/* CONTACT SECTION */}
       <section ref={sectionRefs.contact} id="contact" className="px-6 py-20 border-t border-border/10">
-        <div className="max-w-6xl mx-auto">
-          <SectionHeader title="Let's Connect" subtitle="Have a project in mind or want to discuss opportunities?" />
+        <div className="max-w-4xl mx-auto">
+          <SectionHeader title="Let's Connect" subtitle="Have a project in mind or want to collaborate?" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Contact Form */}
-            <GlowCard glowColor="purple">
-              <h3 className="font-mono text-sm text-primary mb-6">{">"} SEND_MESSAGE()</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-xs font-mono text-muted-foreground mb-2">name: string</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                    placeholder="Your Name"
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
-                  />
+          <GlowCard className="overflow-hidden">
+            {/* Contact Links Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <a href="mailto:drecobs@gmail.com" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 border border-border/20 hover:border-primary/30 transition-all group">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                  <Mail className="w-5 h-5 text-primary" />
                 </div>
-                <div>
-                  <label className="block text-xs font-mono text-muted-foreground mb-2">email: string</label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                    placeholder="your.email@example.com"
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
-                  />
+                <span className="text-foreground text-sm font-medium">Email</span>
+                <span className="text-muted-foreground text-xs">drecobs@gmail.com</span>
+              </a>
+              <a href="https://www.linkedin.com/in/lee-jacobs-41294a328" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 border border-border/20 hover:border-secondary/30 transition-all group">
+                <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors">
+                  <Linkedin className="w-5 h-5 text-secondary" />
                 </div>
-                <div>
-                  <label className="block text-xs font-mono text-muted-foreground mb-2">message: string</label>
-                  <textarea
-                    value={formData.message}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
-                    placeholder="Your message..."
-                    required
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all resize-none"
-                  />
+                <span className="text-foreground text-sm font-medium">LinkedIn</span>
+                <span className="text-muted-foreground text-xs">Connect with me</span>
+              </a>
+              <a href="https://github.com/Lee-Yandre" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 border border-border/20 hover:border-accent/30 transition-all group">
+                <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center group-hover:bg-accent/30 transition-colors">
+                  <Github className="w-5 h-5 text-accent" />
                 </div>
-                <button type="submit" disabled={isSubmitting} className="w-full glow-button text-primary-foreground flex items-center justify-center gap-2 disabled:opacity-50">
-                  {isSubmitting ? "Processing..." : <><Send className="w-4 h-4" /> Send Message</>}
-                </button>
-              </form>
-            </GlowCard>
-
-            {/* Contact Info */}
-            <div className="space-y-6">
-              <GlowCard glowColor="pink">
-                <h3 className="font-mono text-sm text-secondary mb-6">{">"} GET_IN_TOUCH()</h3>
-                <div className="space-y-4">
-                  <a href="mailto:drecobs@gmail.com" className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all group">
-                    <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-                      <Mail className="w-5 h-5 text-accent" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">email</p>
-                      <p className="text-foreground font-medium">drecobs@gmail.com</p>
-                    </div>
-                  </a>
-                  <a href="https://www.linkedin.com/in/lee-jacobs-41294a328" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all group">
-                    <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center group-hover:bg-secondary/30 transition-colors">
-                      <Linkedin className="w-5 h-5 text-secondary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">linkedin</p>
-                      <p className="text-foreground font-medium">linkedin.com/in/lee-yandre-jacobs</p>
-                    </div>
-                  </a>
-                  <a href="https://github.com/Lee-Yandre" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all group">
-                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-                      <Github className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">github</p>
-                      <p className="text-foreground font-medium">github.com/Lee-Yandre</p>
-                    </div>
-                  </a>
-                </div>
-              </GlowCard>
-
-              <GlowCard glowColor="orange">
-                <h3 className="font-mono text-sm text-accent mb-4">{">"} STATUS: <span className="text-green-400">AVAILABLE</span></h3>
-                <p className="text-muted-foreground text-sm mb-4">I'm currently seeking new opportunities in tech solutions development.</p>
-                <button className="w-full glow-button-outline flex items-center justify-center gap-2">
-                  <Download className="w-4 h-4" />
-                  Download CV
-                </button>
-              </GlowCard>
+                <span className="text-foreground text-sm font-medium">GitHub</span>
+                <span className="text-muted-foreground text-xs">View my code</span>
+              </a>
             </div>
-          </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex-1 h-px bg-border/30" />
+              <span className="text-muted-foreground text-xs font-mono">or send a message</span>
+              <div className="flex-1 h-px bg-border/30" />
+            </div>
+
+            {/* Contact Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                  placeholder="Your Name"
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                />
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                  placeholder="your.email@example.com"
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all"
+                />
+              </div>
+              <textarea
+                value={formData.message}
+                onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                placeholder="Your message..."
+                required
+                rows={4}
+                className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+              />
+              <button type="submit" disabled={isSubmitting} className="w-full glow-button text-primary-foreground flex items-center justify-center gap-2 disabled:opacity-50">
+                {isSubmitting ? "Sending..." : <><Send className="w-4 h-4" /> Send Message</>}
+              </button>
+            </form>
+          </GlowCard>
         </div>
       </section>
 
