@@ -6,45 +6,45 @@
 
 @layer base {
   :root {
-    --background: 240 15% 4%;
-    --foreground: 0 0% 95%;
+    --background: 0 0% 2%;
+    --foreground: 0 0% 96%;
 
-    --card: 240 12% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 240 12% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 280 100% 65%;
+    --primary: 280 100% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 320 100% 60%;
+    --secondary: 330 100% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 25 100% 55%;
+    --accent: 20 100% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 60%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 55%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 280 50% 25%;
-    --input: 240 10% 15%;
-    --ring: 280 100% 65%;
+    --border: 280 60% 20%;
+    --input: 0 0% 10%;
+    --ring: 280 100% 60%;
 
     --radius: 1rem;
 
-    /* Custom gradient colors */
-    --gradient-purple: 280 100% 65%;
-    --gradient-pink: 320 100% 60%;
-    --gradient-orange: 25 100% 55%;
+    /* Custom gradient colors - more vibrant */
+    --gradient-purple: 280 100% 55%;
+    --gradient-pink: 330 100% 50%;
+    --gradient-orange: 20 100% 50%;
 
-    /* Glow colors */
-    --glow-purple: 280 100% 65%;
-    --glow-pink: 320 100% 60%;
-    --glow-orange: 25 100% 55%;
+    /* Glow colors - intensified */
+    --glow-purple: 280 100% 60%;
+    --glow-pink: 330 100% 55%;
+    --glow-orange: 20 100% 50%;
     --glow-cyan: 180 100% 50%;
   }
 }
@@ -56,7 +56,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background: linear-gradient(135deg, hsl(240, 15%, 4%) 0%, hsl(260, 20%, 6%) 50%, hsl(240, 15%, 4%) 100%);
+    background: hsl(0, 0%, 2%);
     min-height: 100vh;
   }
 

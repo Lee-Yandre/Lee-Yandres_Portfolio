@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 import avatar from "@/assets/avatar.jpg";
 
 interface NavbarProps {
@@ -69,12 +69,15 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
                 {link.name}
               </button>
             ))}
-            <button 
-              onClick={() => handleNavigate("projects")} 
-              className="glow-button text-primary-foreground text-sm"
+            <a 
+              href="/Lee-YandreJacobs_CV.pdf" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glow-button text-primary-foreground text-sm flex items-center gap-2"
             >
-              View Projects
-            </button>
+              <Download size={16} />
+              Resume
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,12 +103,15 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
                   {link.name}
                 </button>
               ))}
-              <button
-                onClick={() => handleNavigate("projects")}
-                className="glow-button text-primary-foreground text-center mt-2"
+              <a
+                href="/Lee-YandreJacobs_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glow-button text-primary-foreground text-center mt-2 flex items-center justify-center gap-2"
               >
-                View Projects
-              </button>
+                <Download size={16} />
+                Resume
+              </a>
             </div>
           </div>
         )}
