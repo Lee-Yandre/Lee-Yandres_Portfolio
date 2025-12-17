@@ -2,3 +2,6 @@ project_id = "rvppfzuxrwsllblgcjsu"
 
 [functions.ai-greeting]
 verify_jwt = false
+
+[functions.skill-insights]
+verify_jwt = false

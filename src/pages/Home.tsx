@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download, Wand2 } from "lucide-react";
+import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download, Wand2, Lightbulb, TrendingUp, Zap } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackgroundOrbs from "@/components/ui/BackgroundOrbs";
@@ -114,6 +114,8 @@ const Home = () => {
   const [aiGreeting, setAiGreeting] = useState<string>("");
   const [greetingLoading, setGreetingLoading] = useState(true);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set(["home"]));
+  const [skillInsights, setSkillInsights] = useState<{insight: string; type: string}[]>([]);
+  const [insightsLoading, setInsightsLoading] = useState(true);
 
   // Fetch AI greeting on mount
   useEffect(() => {
@@ -132,6 +134,29 @@ const Home = () => {
       }
     };
     fetchGreeting();
+  }, []);
+
+  // Fetch AI skill insights
+  useEffect(() => {
+    const fetchInsights = async () => {
+      try {
+        const allSkills = skillCategories.flatMap(c => c.skills);
+        const { data, error } = await supabase.functions.invoke("skill-insights", {
+          body: { skills: allSkills, projects }
+        });
+        if (error) throw error;
+        setSkillInsights(data.insights || []);
+      } catch (err) {
+        console.error("Failed to fetch skill insights:", err);
+        setSkillInsights([
+          { insight: "Strong AI/ML foundation positions you well for emerging roles", type: "strength" },
+          { insight: "Your NLP projects align with current industry trends", type: "trend" }
+        ]);
+      } finally {
+        setInsightsLoading(false);
+      }
+    };
+    fetchInsights();
   }, []);
 
   // Scroll animation observer
@@ -276,6 +301,33 @@ const Home = () => {
       <section ref={sectionRefs.skills} id="skills" className={`px-6 py-16 border-t border-border/10 ${sectionClass("skills")}`}>
         <div className="max-w-5xl mx-auto">
           <SectionHeader title="Technical Skills" subtitle="Modern tools and technologies for building AI-driven solutions" />
+
+          {/* AI Skill Insights */}
+          <div className="mb-6">
+            {insightsLoading ? (
+              <div className="flex items-center gap-2 text-muted-foreground justify-center py-3">
+                <Lightbulb className="w-4 h-4 animate-pulse" />
+                <span className="text-sm animate-pulse">Analyzing your skillset...</span>
+              </div>
+            ) : skillInsights.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                {skillInsights.map((item, idx) => {
+                  const Icon = item.type === "strength" ? Zap : item.type === "trend" ? TrendingUp : Lightbulb;
+                  const colors = {
+                    strength: "from-primary/20 to-primary/5 border-primary/30",
+                    trend: "from-secondary/20 to-secondary/5 border-secondary/30",
+                    opportunity: "from-accent/20 to-accent/5 border-accent/30"
+                  };
+                  return (
+                    <div key={idx} className={`flex items-start gap-2 p-3 rounded-xl bg-gradient-to-br ${colors[item.type as keyof typeof colors] || colors.opportunity} border animate-fade-in`} style={{ animationDelay: `${idx * 100}ms` }}>
+                      <Icon className="w-4 h-4 text-foreground shrink-0 mt-0.5" />
+                      <p className="text-xs text-foreground/90">{item.insight}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {skillCategories.map((category) => {
