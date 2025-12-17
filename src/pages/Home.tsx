@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download } from "lucide-react";
+import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download, Wand2 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackgroundOrbs from "@/components/ui/BackgroundOrbs";
@@ -7,6 +7,7 @@ import GlowCard from "@/components/ui/GlowCard";
 import SectionHeader from "@/components/ui/SectionHeader";
 import profilePhoto from "@/assets/profile-photo.jpg";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 // Projects data
 const projects = [
@@ -91,6 +92,14 @@ const milestones = [
   { icon: Target, title: "Future Goals", description: "Growing into Tech Solutions Developer role" },
 ];
 
+// Get time of day helper
+const getTimeOfDay = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) return "morning";
+  if (hour < 17) return "afternoon";
+  return "evening";
+};
+
 const Home = () => {
   const sectionRefs = {
     home: useRef<HTMLElement>(null),
@@ -102,6 +111,48 @@ const Home = () => {
 
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [aiGreeting, setAiGreeting] = useState<string>("");
+  const [greetingLoading, setGreetingLoading] = useState(true);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set(["home"]));
+
+  // Fetch AI greeting on mount
+  useEffect(() => {
+    const fetchGreeting = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("ai-greeting", {
+          body: { timeOfDay: getTimeOfDay() }
+        });
+        if (error) throw error;
+        setAiGreeting(data.greeting);
+      } catch (err) {
+        console.error("Failed to fetch AI greeting:", err);
+        setAiGreeting("Welcome! Explore my work in AI and creative technology.");
+      } finally {
+        setGreetingLoading(false);
+      }
+    };
+    fetchGreeting();
+  }, []);
+
+  // Scroll animation observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    Object.values(sectionRefs).forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleNavigate = (section: string) => {
     const ref = sectionRefs[section as keyof typeof sectionRefs];
@@ -118,6 +169,9 @@ const Home = () => {
     setFormData({ name: "", email: "", message: "" });
     setIsSubmitting(false);
   };
+
+  const sectionClass = (id: string) =>
+    `transition-all duration-700 ${visibleSections.has(id) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`;
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
@@ -157,14 +211,29 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="mt-16 font-mono text-sm text-muted-foreground/50">
+          {/* AI Greeting */}
+          <div className="mb-8 min-h-[3rem]">
+            {greetingLoading ? (
+              <div className="flex items-center justify-center gap-2 text-muted-foreground">
+                <Wand2 className="w-4 h-4 animate-pulse" />
+                <span className="text-sm animate-pulse">Crafting a greeting...</span>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border border-primary/20 animate-fade-in">
+                <Wand2 className="w-4 h-4 text-primary shrink-0" />
+                <p className="text-sm text-foreground/90 italic">{aiGreeting}</p>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-8 font-mono text-sm text-muted-foreground/50">
             <span className="text-primary">const</span> passion = <span className="text-secondary">"innovation"</span>;
           </div>
         </div>
       </section>
 
       {/* PROJECTS SECTION */}
-      <section ref={sectionRefs.projects} id="projects" className="px-6 py-20 border-t border-border/10">
+      <section ref={sectionRefs.projects} id="projects" className={`px-6 py-20 border-t border-border/10 ${sectionClass("projects")}`}>
         <div className="max-w-5xl mx-auto">
           <SectionHeader title="Featured Projects" subtitle="Practical solutions built with modern technologies" />
 
@@ -204,7 +273,7 @@ const Home = () => {
       </section>
 
       {/* SKILLS SECTION */}
-      <section ref={sectionRefs.skills} id="skills" className="px-6 py-16 border-t border-border/10">
+      <section ref={sectionRefs.skills} id="skills" className={`px-6 py-16 border-t border-border/10 ${sectionClass("skills")}`}>
         <div className="max-w-5xl mx-auto">
           <SectionHeader title="Technical Skills" subtitle="Modern tools and technologies for building AI-driven solutions" />
 
@@ -235,7 +304,7 @@ const Home = () => {
       </section>
 
       {/* ABOUT SECTION */}
-      <section ref={sectionRefs.about} id="about" className="px-6 py-16 border-t border-border/10">
+      <section ref={sectionRefs.about} id="about" className={`px-6 py-16 border-t border-border/10 ${sectionClass("about")}`}>
         <div className="max-w-5xl mx-auto">
           <SectionHeader title="About Me" subtitle="Journey from foundations to AI innovation" />
 
@@ -321,7 +390,7 @@ const Home = () => {
       </section>
 
       {/* CONTACT SECTION */}
-      <section ref={sectionRefs.contact} id="contact" className="px-6 py-16 border-t border-border/10">
+      <section ref={sectionRefs.contact} id="contact" className={`px-6 py-16 border-t border-border/10 ${sectionClass("contact")}`}>
         <div className="max-w-3xl mx-auto">
           <SectionHeader title="Let's Connect" subtitle="Have a project in mind or want to collaborate?" />
 
