@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Download } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import avatar from "@/assets/avatar.jpg";
 
 interface NavbarProps {
@@ -8,6 +9,7 @@ interface NavbarProps {
 
 const navLinks = [
   { name: "Home", section: "home" },
+  { name: "Courses", section: "courses", isPage: true },
   { name: "Projects", section: "projects" },
   { name: "Skills", section: "skills" },
   { name: "About", section: "about" },
@@ -61,16 +63,26 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <button
-                key={link.section}
-                onClick={() => handleNavigate(link.section)}
-                className="nav-link font-medium"
-              >
-                {link.name}
-              </button>
+              link.isPage ? (
+                <Link
+                  key={link.section}
+                  to={`/${link.section}`}
+                  className="nav-link font-medium"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <button
+                  key={link.section}
+                  onClick={() => handleNavigate(link.section)}
+                  className="nav-link font-medium"
+                >
+                  {link.name}
+                </button>
+              )
             ))}
             <a 
-              href="/Lee-YandreJacobs_CV.pdf" 
+              href="https://capeitinitiative-my.sharepoint.com/personal/lee-yandre_jacobs_capaciti_org_za/Documents/Lee-YandreJacobs_CV.AI.pdf" 
               target="_blank"
               rel="noopener noreferrer"
               className="glow-button text-primary-foreground text-sm flex items-center gap-2"
@@ -95,16 +107,27 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
           <div className="md:hidden mt-4 pb-4 border-t border-border/20 pt-4 animate-fade-in-up">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <button
-                  key={link.section}
-                  onClick={() => handleNavigate(link.section)}
-                  className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors text-left"
-                >
-                  {link.name}
-                </button>
+                link.isPage ? (
+                  <Link
+                    key={link.section}
+                    to={`/${link.section}`}
+                    onClick={() => setIsOpen(false)}
+                    className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors text-left"
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.section}
+                    onClick={() => handleNavigate(link.section)}
+                    className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors text-left"
+                  >
+                    {link.name}
+                  </button>
+                )
               ))}
               <a
-                href="/Lee-YandreJacobs_CV.pdf"
+                href="https://capeitinitiative-my.sharepoint.com/personal/lee-yandre_jacobs_capaciti_org_za/Documents/Lee-YandreJacobs_CV.AI.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glow-button text-primary-foreground text-center mt-2 flex items-center justify-center gap-2"
