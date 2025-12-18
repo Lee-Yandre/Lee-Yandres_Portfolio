@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download, Wand2, Lightbulb, TrendingUp, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download, Wand2, Lightbulb, TrendingUp, Zap, Bot, Shield, MessageSquare, Scale, Cpu, Users, BookOpen } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackgroundOrbs from "@/components/ui/BackgroundOrbs";
@@ -9,6 +9,20 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import profilePhoto from "@/assets/profile-photo.jpg";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+
+// Certificates data
+const certificates = [
+  { title: "AI on Microsoft Azure", vendor: "Microsoft", icon: Cpu, link: "https://coursera.org/share/d1cfeb4e36b80b3505c95a25cc2d76b1" },
+  { title: "AI Chatbots Without Programming", vendor: "IBM", icon: Bot, link: "https://coursera.org/share/f5ff3fe07995710ad8c0ef98cb7b6c9f" },
+  { title: "Responsible AI", vendor: "Google Cloud", icon: Shield, link: "https://coursera.org/share/6b5e73ea26f2230045748c64a572c6e7" },
+  { title: "Prompt Engineering", vendor: "Arizona State", icon: MessageSquare, link: "https://coursera.org/share/7d229f6d838596c59446bab22c77a23e" },
+  { title: "Generative AI for Everyone", vendor: "DeepLearning.AI", icon: Sparkles, link: "https://coursera.org/share/2e4d6d9b36ae57aacd70c1ee68f9a9b3" },
+  { title: "Python for AI & Data Science", vendor: "IBM", icon: Code, link: "https://coursera.org/share/308c7bf14df4e3880bfbb1caf34047e8" },
+  { title: "Trustworthy AI", vendor: "Johns Hopkins", icon: Scale, link: "https://coursera.org/share/9580c3db9d2903ecc106910ea6542402" },
+  { title: "Intro to AI", vendor: "IBM", icon: Brain, link: "https://coursera.org/share/8d7966479414235250d060da2b8494fc" },
+  { title: "AI For Everyone", vendor: "DeepLearning.AI", icon: Users, link: "https://coursera.org/share/ae43b8544868d2d598c62c44001c707b" },
+  { title: "Generative AI with LLMs", vendor: "DeepLearning.AI", icon: BookOpen, link: "https://coursera.org/share/9a77b17e7507d91f4b4d1e51814a1b47" },
+];
 
 // Projects data
 const projects = [
@@ -105,9 +119,10 @@ const Home = () => {
   const location = useLocation();
   const sectionRefs = {
     home: useRef<HTMLElement>(null),
+    about: useRef<HTMLElement>(null),
+    courses: useRef<HTMLElement>(null),
     projects: useRef<HTMLElement>(null),
     skills: useRef<HTMLElement>(null),
-    about: useRef<HTMLElement>(null),
     contact: useRef<HTMLElement>(null),
   };
 
@@ -454,6 +469,58 @@ const Home = () => {
                 })}
               </div>
             </GlowCard>
+          </div>
+        </div>
+      </section>
+
+      {/* COURSES SECTION */}
+      <section ref={sectionRefs.courses} id="courses" className={`px-6 py-12 border-t border-border/10 ${sectionClass("courses")}`}>
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader title="AI Certifications" subtitle="Coursera certifications from CAPACITI AI Bootcamp" />
+
+          {/* Bootcamp Badge */}
+          <div className="flex items-center justify-between mb-4 p-3 rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <GraduationCap className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-display font-semibold text-foreground">AI Bootcamp V2</p>
+                <p className="text-xs text-muted-foreground">8-week intensive program</p>
+              </div>
+            </div>
+            <a
+              href="https://coursera.org/share/6f9de1606939e788ae7ab0b8789b5a42"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-primary hover:text-primary/80 flex items-center gap-1"
+            >
+              <Award className="w-3.5 h-3.5" />
+              View Badge
+            </a>
+          </div>
+
+          {/* Certificates Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+            {certificates.map((cert) => {
+              const IconComponent = cert.icon;
+              return (
+                <a
+                  key={cert.title}
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-2.5 rounded-lg bg-muted/30 hover:bg-muted/50 border border-border/20 hover:border-primary/30 transition-all"
+                >
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <IconComponent className="w-4 h-4 text-primary/70 group-hover:text-primary" />
+                    <ExternalLink className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+                  </div>
+                  <p className="text-xs font-medium text-foreground leading-tight line-clamp-2">{cert.title}</p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">{cert.vendor}</p>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
