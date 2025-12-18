@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ArrowRight, Sparkles, ExternalLink, Brain, Code, Database, Palette, Wrench, Globe, GraduationCap, Rocket, Target, Award, Send, Mail, Linkedin, Github, Download, Wand2, Lightbulb, TrendingUp, Zap } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -101,6 +102,7 @@ const getTimeOfDay = () => {
 };
 
 const Home = () => {
+  const location = useLocation();
   const sectionRefs = {
     home: useRef<HTMLElement>(null),
     projects: useRef<HTMLElement>(null),
@@ -116,6 +118,21 @@ const Home = () => {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set(["home"]));
   const [skillInsights, setSkillInsights] = useState<{insight: string; type: string}[]>([]);
   const [insightsLoading, setInsightsLoading] = useState(true);
+
+  // Handle scroll when navigating from another page
+  useEffect(() => {
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo) {
+      const ref = sectionRefs[state.scrollTo as keyof typeof sectionRefs];
+      if (ref?.current) {
+        setTimeout(() => {
+          ref.current?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+      // Clear the state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Fetch AI greeting on mount
   useEffect(() => {

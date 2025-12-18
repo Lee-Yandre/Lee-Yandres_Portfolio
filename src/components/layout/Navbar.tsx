@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Download } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import avatar from "@/assets/avatar.jpg";
 
 interface NavbarProps {
@@ -9,26 +9,34 @@ interface NavbarProps {
 
 const navLinks = [
   { name: "Home", section: "home" },
+  { name: "About", section: "about" },
   { name: "Courses", section: "courses", isPage: true },
   { name: "Projects", section: "projects" },
   { name: "Skills", section: "skills" },
-  { name: "About", section: "about" },
   { name: "Contact", section: "contact" },
 ];
 
 const Navbar = ({ onNavigate }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    // Trigger avatar animation after a short delay
     const timer = setTimeout(() => setHasAnimated(true), 500);
     return () => clearTimeout(timer);
   }, []);
 
   const handleNavigate = (section: string) => {
-    onNavigate?.(section);
     setIsOpen(false);
+    
+    // If we're on a different page (like /courses), navigate to home first
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: section } });
+    } else {
+      // We're on home page, use the onNavigate prop
+      onNavigate?.(section);
+    }
   };
 
   return (
@@ -36,8 +44,8 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo with Avatar */}
-          <button 
-            onClick={() => handleNavigate("home")} 
+          <Link 
+            to="/"
             className="flex items-center gap-3 group"
           >
             {/* Animated Avatar */}
@@ -58,7 +66,7 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
             <span className="text-foreground font-display font-semibold hidden sm:block">
               Lee-Yandre Jacobs
             </span>
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
