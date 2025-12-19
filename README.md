@@ -1,10 +1,10 @@
-# Welcome to your Lovable project
+# MY AI PORTFOLIO
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
-##Portfolio Overview
+## 📌Portfolio Overview
 My portfolio showcases collaborative projects built during the CAPACITI Career Accelerator and a two‑month Artificial Intelligence Bootcamp.It highlights practical, user‑centered solutions powered by modern web frameworks and artificial intelligence tools.
 
 This portfolio reflects my journey as an emerging technology professional, combining programming, design thinking, and teamwork to deliver scalable, ethical, and impactful digital solutions.
@@ -19,7 +19,6 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+https://synth-bloom-hub.lovable.app/
 
