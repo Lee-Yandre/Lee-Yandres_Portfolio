@@ -203,6 +203,28 @@
   .animate-slide-in-right {
     animation: slide-in-right 0.6s ease-out forwards;
   }
+
+  /* 3D Card Effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .card-3d {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    transform-style: preserve-3d;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+  }
+
+  .parallax-slow {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
 }
 
 @keyframes float {
@@ -309,6 +331,21 @@
   }
 }
 
+@keyframes tilt-float {
+  0%, 100% {
+    transform: translateY(0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(-1deg) rotateY(1deg);
+  }
+  75% {
+    transform: translateY(-5px) rotateX(0.5deg) rotateY(-0.5deg);
+  }
+}
+
 .animate-avatar-bounce {
   animation: avatar-bounce 3s ease-in-out infinite;
 }
@@ -319,4 +356,8 @@
 
 .animate-sparkle {
   animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.animate-tilt-float {
+  animation: tilt-float 8s ease-in-out infinite;
 }
