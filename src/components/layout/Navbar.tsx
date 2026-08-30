@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import avatar from "@/assets/avatar.jpg";
 
@@ -7,12 +7,16 @@ interface NavbarProps {
   onNavigate?: (section: string) => void;
 }
 
+const CV_URL =
+  "https://capeitinitiative-my.sharepoint.com/personal/lee-yandre_jacobs_capaciti_org_za/Documents/Lee-YandreJacobs_CV.AI.pdf";
+
 const navLinks = [
   { name: "Home", section: "home" },
   { name: "About", section: "about" },
-  { name: "Courses", section: "courses" },
-  { name: "Projects", section: "projects" },
+  { name: "Experience", section: "experience" },
   { name: "Skills", section: "skills" },
+  { name: "Projects", section: "projects" },
+  { name: "Certifications", section: "courses" },
   { name: "Contact", section: "contact" },
 ];
 
@@ -23,103 +27,96 @@ const Navbar = ({ onNavigate }: NavbarProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => setHasAnimated(true), 500);
+    const timer = setTimeout(() => setHasAnimated(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
   const handleNavigate = (section: string) => {
     setIsOpen(false);
-    
-    // If we're on a different page (like /courses), navigate to home first
     if (location.pathname !== "/") {
       navigate("/", { state: { scrollTo: section } });
     } else {
-      // We're on home page, use the onNavigate prop
       onNavigate?.(section);
     }
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/20">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-lg border-b border-border/60">
+      <div className="max-w-7xl mx-auto px-6 py-3.5">
         <div className="flex items-center justify-between">
-          {/* Logo with Avatar */}
-          <Link 
-            to="/"
-            className="flex items-center gap-3 group"
-          >
-            {/* Animated Avatar */}
-            <div className={`relative transition-all duration-1000 ${hasAnimated ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/30 animate-avatar-bounce">
-                <img 
-                  src={avatar} 
-                  alt="Lee-Yandre Jacobs Avatar" 
-                  className="w-full h-full object-cover"
-                />
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div
+              className={`transition-all duration-700 ${
+                hasAnimated ? "scale-100 opacity-100" : "scale-95 opacity-0"
+              }`}
+            >
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-border group-hover:border-primary/60 transition-colors duration-300 animate-avatar-bounce">
+                <img src={avatar} alt="Lee-Yandre Jacobs" className="w-full h-full object-cover" />
               </div>
-              {/* Glow ring animation */}
-              <div className={`absolute inset-0 rounded-full border-2 border-primary/50 animate-ping-slow ${hasAnimated ? 'opacity-100' : 'opacity-0'}`} />
-              {/* Sparkle effects */}
-              <div className={`absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full animate-sparkle ${hasAnimated ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }} />
-              <div className={`absolute -bottom-1 -left-1 w-2 h-2 bg-accent rounded-full animate-sparkle ${hasAnimated ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '0.5s' }} />
             </div>
-            <span className="text-foreground font-display font-semibold hidden sm:block">
-              Lee-Yandre Jacobs
-            </span>
+            <div className="hidden sm:block leading-tight">
+              <span className="block text-foreground font-display font-semibold text-sm">
+                Lee-Yandre Jacobs
+              </span>
+              <span className="block text-muted-foreground text-[11px]">
+                IT Professional
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <button
                 key={link.section}
                 onClick={() => handleNavigate(link.section)}
-                className="nav-link font-medium"
+                className="nav-link text-sm font-medium"
               >
                 {link.name}
               </button>
             ))}
-            <a 
-              href="https://capeitinitiative-my.sharepoint.com/personal/lee-yandre_jacobs_capaciti_org_za/Documents/Lee-YandreJacobs_CV.AI.pdf" 
+            <a
+              href={CV_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="glow-button text-primary-foreground text-sm flex items-center gap-2"
+              className="glow-button text-sm flex items-center gap-2"
             >
-              <Download size={16} />
+              <FileText size={15} />
               Resume
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground p-2"
+            className="lg:hidden text-foreground p-2"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border/20 pt-4 animate-fade-in-up">
+          <div className="lg:hidden mt-4 pb-4 border-t border-border/60 pt-4 animate-fade-in-up">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <button
                   key={link.section}
                   onClick={() => handleNavigate(link.section)}
-                  className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors text-left"
+                  className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors text-left"
                 >
                   {link.name}
                 </button>
               ))}
               <a
-                href="https://capeitinitiative-my.sharepoint.com/personal/lee-yandre_jacobs_capaciti_org_za/Documents/Lee-YandreJacobs_CV.AI.pdf"
+                href={CV_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glow-button text-primary-foreground text-center mt-2 flex items-center justify-center gap-2"
+                className="glow-button text-center mt-2 flex items-center justify-center gap-2"
               >
-                <Download size={16} />
+                <FileText size={15} />
                 Resume
               </a>
             </div>
