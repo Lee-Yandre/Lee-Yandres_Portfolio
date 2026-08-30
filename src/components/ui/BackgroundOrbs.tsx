@@ -1,48 +1,40 @@
 const BackgroundOrbs = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {/* Top left orb - Purple */}
+      {/* Subtle ambient light, top left */}
       <div
-        className="background-orb w-[600px] h-[600px] -top-40 -left-40 animate-glow-pulse"
+        className="background-orb w-[700px] h-[700px] -top-60 -left-40"
         style={{
-          background: "radial-gradient(circle, hsl(280 100% 65% / 0.3) 0%, transparent 70%)",
-          animation: "orb-float 20s ease-in-out infinite, glow-pulse 3s ease-in-out infinite",
+          background: "radial-gradient(circle, hsl(210 90% 55% / 0.16) 0%, transparent 70%)",
+          animation: "orb-float 28s ease-in-out infinite, glow-pulse 8s ease-in-out infinite",
         }}
       />
-      
-      {/* Top right orb - Pink */}
+
+      {/* Subtle ambient light, mid right */}
       <div
-        className="background-orb w-[500px] h-[500px] -top-20 right-20"
+        className="background-orb w-[520px] h-[520px] top-1/3 -right-40"
         style={{
-          background: "radial-gradient(circle, hsl(320 100% 60% / 0.2) 0%, transparent 70%)",
-          animation: "orb-float 25s ease-in-out infinite 5s, glow-pulse 4s ease-in-out infinite",
+          background: "radial-gradient(circle, hsl(185 65% 45% / 0.1) 0%, transparent 70%)",
+          animation: "orb-float 34s ease-in-out infinite 6s, glow-pulse 10s ease-in-out infinite",
         }}
       />
-      
-      {/* Middle right orb - Orange */}
+
+      {/* Faint warm wash, bottom */}
       <div
-        className="background-orb w-[400px] h-[400px] top-1/3 -right-20"
+        className="background-orb w-[480px] h-[480px] bottom-0 left-1/3"
         style={{
-          background: "radial-gradient(circle, hsl(25 100% 55% / 0.15) 0%, transparent 70%)",
-          animation: "orb-float 18s ease-in-out infinite 2s, glow-pulse 5s ease-in-out infinite",
+          background: "radial-gradient(circle, hsl(38 85% 58% / 0.07) 0%, transparent 70%)",
+          animation: "orb-float 30s ease-in-out infinite 3s, glow-pulse 12s ease-in-out infinite",
         }}
       />
-      
-      {/* Bottom left orb - Cyan */}
+
+      {/* Fine grid for a structured, technical feel */}
       <div
-        className="background-orb w-[450px] h-[450px] bottom-20 -left-20"
+        className="absolute inset-0 opacity-[0.035]"
         style={{
-          background: "radial-gradient(circle, hsl(180 100% 50% / 0.1) 0%, transparent 70%)",
-          animation: "orb-float 22s ease-in-out infinite 8s, glow-pulse 6s ease-in-out infinite",
-        }}
-      />
-      
-      {/* Bottom center orb - Purple/Pink blend */}
-      <div
-        className="background-orb w-[350px] h-[350px] bottom-40 left-1/2 -translate-x-1/2"
-        style={{
-          background: "radial-gradient(circle, hsl(300 80% 60% / 0.15) 0%, transparent 70%)",
-          animation: "orb-float 15s ease-in-out infinite 3s, glow-pulse 4s ease-in-out infinite",
+          backgroundImage:
+            "linear-gradient(hsl(210 90% 70%) 1px, transparent 1px), linear-gradient(90deg, hsl(210 90% 70%) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
         }}
       />
     </div>
