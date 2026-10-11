@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Sora", "sans-serif"],
-        sans: ["Plus Jakarta Sans", "sans-serif"],
+        display: ["Fraunces", "serif"],
+        sans: ["Manrope", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
 
@@ -53,11 +53,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        glow: {
-          purple: "hsl(var(--glow-purple))",
-          pink: "hsl(var(--glow-pink))",
-          orange: "hsl(var(--glow-orange))",
-          cyan: "hsl(var(--glow-cyan))",
+        brand: {
+          navy: "hsl(var(--navy))",
+          "navy-deep": "hsl(var(--navy-deep))",
+          burgundy: "hsl(var(--burgundy))",
+          plum: "hsl(var(--plum))",
+          cherry: "hsl(var(--cherry))",
+          lavender: "hsl(var(--lavender))",
         },
       },
       borderRadius: {
